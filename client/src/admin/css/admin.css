@@ -1,0 +1,90 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  background-color: transparent;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+
+/* reset */
+.home {
+  grid-auto-flow: dense;
+}
+
+.box {
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #8b8b8b;
+
+}
+
+.box1 {}
+
+.box2 {}
+
+.box3 {}
+
+.box4 {}
+
+.box5 {}
+
+.box6 {}
+
+.box7 {}
+
+.box8 {}
+
+.box9 {}
+
+/* MUI X GRID */
+.MuiDataGrid-toolbarContainer {
+  flex-direction: row-reverse;
+}
+
+.css-128fb87-MuiDataGrid-toolbarContainer {
+  justify-content: flex-end;
+}
+
+/* customer */
+.hidden-input {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
+/* CUSTOM REACT QUILL */
+.ql-toolbar.ql-snow,.ql-container.ql-snow{
+  border-style: none !important;
+}
