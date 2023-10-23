@@ -139,13 +139,13 @@ const Sidebar = () => {
           key={item.id}
           className="flex flex-col gap-2.5 text-soft-color mb-5"
         >
-          <span className="max-md:hidden">{item.title}</span>
+          <span className="hidden md:block">{item.title}</span>
 
           {item.listItems.map((listItems) =>
             listItems.onClick ? (
               <button
                 key={listItems.id}
-                className="flex items-center p-2 max-md:justify-center gap-x-2 hover:bg-soft-bg"
+                className="flex items-center justify-center p-2 md:justify-start gap-x-2 hover:bg-soft-bg"
                 onClick={logoutAdmin}
               >
                 <div className="flex items-center justify-center text-xl">
@@ -161,8 +161,8 @@ const Sidebar = () => {
                 to={listItems.url}
                 className={({ isActive }) =>
                   isActive
-                    ? "flex items-center md:max-md:justify-center gap-x-2 p-2 bg-soft-bg"
-                    : "flex items-center md:max-md:justify-center gap-x-2 p-2 hover:bg-soft-bg"
+                    ? "flex items-center justify-center md:justify-start gap-x-2 p-2 bg-soft-bg"
+                    : "flex items-center justify-center md:justify-start gap-x-2 p-2 hover:bg-soft-bg"
                 }
               >
                 <div className="flex items-center justify-center text-xl">

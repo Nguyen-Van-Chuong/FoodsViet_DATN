@@ -16,8 +16,10 @@ const UserPage = () => {
     { field: "_id", headerName: "ID", width: 90 },
     {
       field: "img",
-      headerName: "Image",
-      width: 100,
+      headerName: "Ảnh",
+
+      width: 200,
+      height: 500,
       renderCell: (params) => {
         return <img src={params.row.image || "/noavatar.png"} alt="" />;
       },
@@ -25,18 +27,24 @@ const UserPage = () => {
     {
       field: "title",
       type: "string",
-      headerName: "Title",
+      headerName: "Tiêu đề",
       width: 300,
     },
     {
-      field: "content",
+      field: "views",
       type: "string",
-      headerName: "Nội dung",
-      width: 300,
+      headerName: "Lượt xem",
+      width: 100,
+    },
+    {
+      field: "status",
+      type: "string",
+      headerName: "Trạng thái",
+      width: 100,
     },
 
     {
-      field: "createdAt",
+      field: "date",
       headerName: "Created At",
       width: 200,
       type: "string",
@@ -77,9 +85,11 @@ const UserPage = () => {
   return (
     <div className="users">
       <div className="flex items-center justify-between gap-5 mb-5 info">
-        <h1 className="text-3xl font-bold uppercase">bài viết</h1>
+        <h1 className="text-xl font-bold leading-3 uppercase md:text-3xl">
+          bài viết
+        </h1>
         <Link
-          className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+          className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-full text-md md:text-lg hover:bg-blue-700"
           to={"/admin/posts/add-post"}
         >
           Thêm bài viết

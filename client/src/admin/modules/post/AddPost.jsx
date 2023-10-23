@@ -16,22 +16,27 @@ import { useSelector } from "react-redux";
 
 const AddPost = (props) => {
   const { categories } = useSelector((state) => state.categories);
+  const { infoAdmin } = useSelector((state) => state.admin);
+  // console.log("🚀 --> AddPost --> infoAdmin:", infoAdmin._id);
   const [selectCategory, setSelectCategory] = useState("");
   const [content, setContent] = useState("");
 
-  const { control, watch, setValue, handleSubmit, getValues, reset } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      user_name: "",
-      email: "",
-      password: "",
-      image: "",
-      full_name: "",
-      id_image: "",
-      hot: false,
-      address: "",
-    },
-  });
+  const { control, watch, setValue, handleSubmit, getValues, reset, register } =
+    useForm({
+      mode: "onChange",
+      defaultValues: {
+        title: "",
+        content: "",
+        category: "",
+        view: 0,
+        date: new Date(),
+        id_customer: "",
+        id_admin: "",
+        id_image: "",
+        status: "approved",
+        like: [],
+      },
+    });
   const watchHot = watch("hot");
   const watchStatus = watch("status");
 
@@ -39,7 +44,9 @@ const AddPost = (props) => {
     setSelectCategory(item);
   };
 
-  const addHandlerPost = (e) => {};
+  const addHandlerPost = (values) => {
+    console.log(values);
+  };
 
   return (
     <>
@@ -47,14 +54,29 @@ const AddPost = (props) => {
         title="Bài viết"
         desc="Thêm bài viết"
       ></DashboardHeading>
+
       <form onSubmit={handleSubmit(addHandlerPost)} className="text-base">
+        {/* <input
+          type="hidden"
+          name="id_admin"
+          value={infoAdmin._id}
+          control={control}
+        /> */}
+        <input
+          {...register("id_admin")}
+          className=""
+          type="text"
+          // control={control}
+          name="id_admin"
+          value={infoAdmin._id}
+        />
         <div className="grid grid-cols-1 mb-4 md:grid-cols-2 md:mb-5 gap-x-5 gap-y-5">
           <Field>
             <Label>Tiêu đề</Label>
             <Input
               control={control}
               placeholder="Nhập tên đăng nhập..."
-              name="user_name"
+              name="title"
             ></Input>
           </Field>
           <Field>
@@ -70,7 +92,7 @@ const AddPost = (props) => {
           <Field>
             <Label>Ảnh</Label>
             <div className="w-full">
-              <ImageUpload className=""></ImageUpload>
+              <ImageUpload className="" name={"image"}></ImageUpload>
             </div>
           </Field>
           <Field>
@@ -81,7 +103,7 @@ const AddPost = (props) => {
               >
                 select
               </Dropdown.Select>
-              <Dropdown.List >
+              <Dropdown.List>
                 {categories.length > 0 &&
                   categories.map((item) => (
                     <Dropdown.Option
@@ -120,8 +142,8 @@ const AddPost = (props) => {
           </Field>
         </div>
         {/* <div className="grid grid-cols-2 mb-4 max-sm:grid-cols-1 md:mb-5 gap-x-5 gap-y-5"> */}
-        <div className="flex mb-4 max-sm:flex-col-reverse md:mb-5 gap-x-5 gap-y-5">
-          <Field className="md:flex-1 max-md:pr-20">
+        <div className="flex flex-col mb-4 sm:flex-row sm:justify-between md:mb-5 gap-x-5 gap-y-5">
+          <Field className="md:flex-1">
             <Label>Hot</Label>
             <Toggle
               on={watchHot === true}
@@ -129,9 +151,9 @@ const AddPost = (props) => {
             ></Toggle>
           </Field>
 
-          <Field className="flex-1">
+          <Field className="md:flex-1">
             <Label>Trạng thái</Label>
-            <div className="flex items-center gap-x-5 sm:gap-x-2 md:gap-x-10">
+            <div className="flex items-center gap-x-2 sm:gap-x-2 md:gap-x-10">
               <Radio
                 control={control}
                 name={"status"}

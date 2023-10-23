@@ -66,19 +66,49 @@ const authSlice = createSlice({
         loading: action.payload,
       };
     },
-    createUser: (state, action) => {
+    // admin
+    creatUserRequest: (state) => {
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    },
+    createUserSuccess: (state, action) => {
       return {
         ...state,
         loading: false,
         error: null,
       };
     },
-    deleteUser: (state, action) => {
-      const { id } = action.payload;
-      const userUpdate = state.customers.filter((user) => user._id !== id);
+    deleteUserRequest: (state, action) => {
       return {
         ...state,
-        customers: userUpdate,
+        loading: true,
+        error: null,
+      };
+    },
+    deleteUserSuccess: (state, action) => {
+      const updateUser = state.customers.filter(
+        (user) => user._id !== action.payload.id
+      );
+      return {
+        ...state,
+        customers: updateUser,
+        loading: false,
+        error: null,
+      };
+    },
+    updateUserRequest: (state) => {
+      return {
+        ...state,
+        error: null,
+      };
+    },
+    updateUserSuccess: (state, action) => {
+      return {
+        ...state,
+        error: null,
       };
     },
   },
@@ -92,8 +122,12 @@ export const {
   requestFailure,
   customerDetailRequest,
   customerDetailSuccess,
-  deleteUser,
-  createUser,
+  creatUserRequest,
+  createUserSuccess,
+  deleteUserRequest,
+  deleteUserSuccess,
+  updateUserRequest,
+  updateUserSuccess,
   setLoadingCustomer,
 } = authSlice.actions;
 export default authSlice.reducer;

@@ -15,7 +15,7 @@ export function getAllCustomers(token) {
   });
 }
 export function updateCustomer(token, entity) {
-  return axios.put(`/${COLLECTION_NAME}/updateCustomer`, entity, {
+  return axios.put(`/admin/updateCustomer`, entity, {
     headers: {
       "Content-Type": "multipart/form-data",
       token: `Bearer ${token}`,
@@ -33,6 +33,14 @@ export const createUser = (token, entity) => {
 export const deleteUser = (token, id) => {
   return axios.delete(`/admin/deleteCustomer?id=${id}`, {
     headers: {
+      token: `Bearer ${token}`,
+    },
+  });
+};
+export const updateUser = (token, id, entity) => {
+  return axios.put(`/admin/updateCustomer?id=${id}`, entity, {
+    headers: {
+      "Content-Type": "multipart/form-data",
       token: `Bearer ${token}`,
     },
   });

@@ -5,12 +5,15 @@ import {
   getDetailCustomer,
   createUser,
   updateCustomer,
+  updateUser,
 } from "./request";
 import {
   customerDetailSuccess,
   customersRequest,
   customersSuccess,
   requestFailure,
+  createUserSuccess,
+  deleteUserSuccess,
   setLoadingCustomer,
 } from "./customersSlice";
 import { setErrorGlobal, setNotifyGlobal } from "../global/globalSlice";
@@ -84,17 +87,16 @@ function* handleCommonError(error) {
     yield put(setErrorGlobal(error?.response?.data?.message));
   }
 }
-
+// admin
 export function* handleCreateUser({ payload }) {
   try {
     yield put(setNotifyGlobal(""));
     const response = yield call(createUser, payload?.admin, payload?.values);
-
     if (response) {
       yield put(setNotifyGlobal(response.data?.message));
     }
   } catch (error) {
-    console.log(error);
+    yield handleCommonError(error);
   }
 }
 export function* handleDeleteUser({ payload }) {
@@ -103,9 +105,26 @@ export function* handleDeleteUser({ payload }) {
     yield put(setNotifyGlobal(""));
     const response = yield call(deleteUser, token, id);
     if (response) {
+      yield put(deleteUserSuccess({ id }));
       yield put(setNotifyGlobal(response.data?.message));
     }
   } catch (error) {
-    console.log(error);
+    yield handleCommonError(error);
+  }
+}
+export function* handleUpdateUser({ payload }) {
+  try {
+    yield put(setNotifyGlobal(""));
+    const response = yield call(
+      updateUser,
+      payload.token,
+      payload._id,
+      payload.values
+    );
+    if (response) {
+      yield put(setNotifyGlobal(response.data?.message));
+    }
+  } catch (error) {
+    yield handleCommonError(error);
   }
 }

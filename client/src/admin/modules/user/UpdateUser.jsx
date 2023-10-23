@@ -11,11 +11,14 @@ import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
   creatUserRequest,
+  updateUserRequest,
   customerDetailRequest,
-  customersRequest,
+  setLoadingCustomer,
 } from "../../../sagas/customers/customersSlice";
 import { getObjectFromLocalStorage } from "../../../utils/localstorage";
+import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { setNotifyGlobal } from "../../../sagas/global/globalSlice";
 const schemaValidate = Yup.object({
   user_name: Yup.string(),
   // .required("Vui lòng nhập tên đăng nhập!")
@@ -29,9 +32,12 @@ const schemaValidate = Yup.object({
   //   "Mật khẩu cần có ít nhất 1 ký tự in hoa, 1 ký tự thường, 1 số và 1 ký tự đặt biệt!"
   // ),
 });
-const AddUser = (props) => {
-  const { token: admin, infoAdmin } = useSelector((state) => state.admin);
+const UpdateUser = (props) => {
+  const { token, infoAdmin } = useSelector((state) => state.admin);
+  const { customer_detail } = useSelector((state) => state.customers);
   const tokenAdminLocal = getObjectFromLocalStorage("adminToken");
+  const params = useParams();
+  const { id } = params;
 
   const {
     control,
@@ -61,10 +67,14 @@ const AddUser = (props) => {
 
   const dispatch = useDispatch();
 
-  const addHandlerUser = (values) => {
+  const updateHandlerUser = (values) => {
+    const { _id } = values;
+    console.log(values);
     try {
       if (values) {
-        dispatch(creatUserRequest({ admin, values }));
+        dispatch(setLoadingCustomer(true));
+        dispatch(updateUserRequest({ token, _id, values }));
+        dispatch(setNotifyGlobal(""));
         reset({
           user_name: "",
           email: "",
@@ -78,16 +88,24 @@ const AddUser = (props) => {
         });
       }
     } catch (error) {
-      console.log(error?.response.data.message);
+      console.log(error);
     }
   };
+  useEffect(() => {
+    dispatch(customerDetailRequest({ token, id }));
+  }, [id]);
+  useEffect(() => {
+    if (customer_detail) {
+      reset({ ...customer_detail, password: "" });
+    }
+  }, [id, reset, customer_detail]);
   return (
     <>
       <DashboardHeading
         title="Người dùng"
         desc="Thêm người dùng"
       ></DashboardHeading>
-      <form onSubmit={handleSubmit(addHandlerUser)}>
+      <form onSubmit={handleSubmit(updateHandlerUser)}>
         <div className="w-[150px] sm:w-[200px] mx-auto mb-4 sm:mb-10">
           <ImageUpload className="!rounded-full"></ImageUpload>
         </div>
@@ -195,4 +213,4 @@ const AddUser = (props) => {
   );
 };
 
-export default AddUser;
+export default UpdateUser;

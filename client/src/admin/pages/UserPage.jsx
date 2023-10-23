@@ -4,7 +4,7 @@ import { userRows } from "../../data";
 import AddUser from "../modules/user/AddUser";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser } from "../../sagas/customers/customersSlice";
+import { deleteUserRequest } from "../../sagas/customers/customersSlice";
 
 const UserPage = () => {
   const { customers, loading } = useSelector((state) => state.customers);
@@ -13,7 +13,7 @@ const UserPage = () => {
 
   const handleDeleteUser = (id) => {
     if (confirm("Bạn có muốn xóa bài viết có id: " + id) == true) {
-      dispatch(deleteUser({ token, id }));
+      dispatch(deleteUserRequest({ token, id }));
     }
   };
 
@@ -75,7 +75,7 @@ const UserPage = () => {
       renderCell: (params) => {
         return (
           <div className="flex items-center action">
-            <Link to={`/admin/users/${params.row.id}`}>
+            <Link to={`/admin/users/update-user/${params.row._id}`}>
               <img src="/view.svg" alt="" />
             </Link>
             <div
@@ -96,9 +96,11 @@ const UserPage = () => {
   return (
     <div className="users">
       <div className="flex items-center justify-between gap-5 mb-5 info">
-        <h1 className="text-3xl font-bold leading-3 uppercase">Người dùng</h1>
+        <h1 className="text-xl font-bold leading-3 uppercase md:text-3xl">
+          Người dùng
+        </h1>
         <Link
-          className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+          className="px-6 py-2 font-bold text-white bg-blue-500 rounded-full text-md md:text-lg hover:bg-blue-700"
           to={"/admin/users/add-user"}
         >
           Thêm người dùng

@@ -10,6 +10,7 @@ import AddUser from "../admin/modules/user/AddUser";
 import AddPost from "../admin/modules/post/AddPost";
 import CategoryPage from "../admin/pages/CategoryPage";
 import CommentPage from "../admin/pages/CommentPage";
+import UpdateUser from "../admin/modules/user/UpdateUser";
 
 export const ADMIN_ROUTE = {
   path: "",
@@ -28,6 +29,7 @@ export const ADMIN_ROUTE = {
       element: <UserPage></UserPage>,
     },
     { path: "users/add-user", element: <AddUser></AddUser> },
+    { path: "users/update-user/:id", element: <UpdateUser></UpdateUser> },
     {
       path: "categories",
       element: <CategoryPage></CategoryPage>,

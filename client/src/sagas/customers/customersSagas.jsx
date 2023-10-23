@@ -5,19 +5,22 @@ import {
   handleGetDetailCustomer,
   handleCreateUser,
   handleUpdateCustomers,
+  handleUpdateUser,
 } from "./handles";
 import {
   customerDetailRequest,
   customersRequest,
-  deleteUser,
-  createUser,
+  deleteUserRequest,
+  creatUserRequest,
   updateCustomerRequest,
+  updateUserRequest,
 } from "./customersSlice";
 
 export default function* customersSagas() {
   yield takeLatest(customerDetailRequest.type, handleGetDetailCustomer);
   yield takeLatest(customersRequest.type, handleGetAllCustomers);
   yield takeLatest(updateCustomerRequest.type, handleUpdateCustomers);
-  yield takeLatest(deleteUser.type, handleDeleteUser);
-  yield takeLatest(createUser.type, handleCreateUser);
+  yield takeLatest(deleteUserRequest.type, handleDeleteUser);
+  yield takeLatest(creatUserRequest.type, handleCreateUser);
+  yield takeLatest(updateUserRequest.type, handleUpdateUser);
 }

@@ -12,10 +12,10 @@ const Navbar = () => {
         <div className="text-xl">
           <ion-icon name="search-outline"></ion-icon>
         </div>
-        <div className="text-xl max-md:hidden md:block">
+        <div className="hidden text-xl md:block">
           <ion-icon name="archive-outline"></ion-icon>
         </div>
-        <div className="relative max-md:hidden md:block">
+        <div className="relative hidden md:block">
           <span className="absolute flex items-center justify-center w-4 h-4 text-xs bg-red-600 rounded-full z-[1] -right-1 -top-0">
             6
           </span>

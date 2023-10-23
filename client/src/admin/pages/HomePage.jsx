@@ -34,7 +34,7 @@ const HomePage = () => {
         {" "}
         <ChartBox {...chartBoxRevenue} />
       </div>
-      <div className="col-span-2 row-span-2 max-sm:hidden box box7">
+      <div className="hidden col-span-2 row-span-2 sm:block box box7">
         <BigChartBox></BigChartBox>
       </div>
       <div className="box box8">

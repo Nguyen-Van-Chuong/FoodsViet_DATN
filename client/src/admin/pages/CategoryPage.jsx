@@ -18,7 +18,7 @@ const CategoryPage = () => {
     {
       field: "img",
       headerName: "Ảnh",
-      width: 100,
+      width: 250,
       renderCell: (params) => {
         return <img src={params.row.image || "/noavatar.png"} alt="" />;
       },
@@ -70,9 +70,11 @@ const CategoryPage = () => {
   return (
     <div className="users">
       <div className="flex items-center justify-between gap-5 mb-5 info">
-        <h1 className="text-xl font-bold uppercase">Loại bài viết</h1>
+        <h1 className="text-xl font-bold leading-3 uppercase md:text-3xl">
+          Loại bài viết
+        </h1>
         <Link
-          className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+          className="px-6 py-2 text-lg font-bold text-white bg-blue-500 rounded-full text-md md:text-lg hover:bg-blue-700"
           to={"/admin/posts/add-post"}
         >
           Thêm loại
@@ -84,6 +86,9 @@ const CategoryPage = () => {
         loading={loading}
         columns={columns}
         rows={dataWithId}
+        getRowHeight={({ id, densityFactor }) => {
+          return 150 * densityFactor;
+        }}
       />
     </div>
   );
